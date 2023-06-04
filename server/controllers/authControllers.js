@@ -58,7 +58,7 @@ const logout = (req, res) => {
   try {
     req.removeHeader('Set-Cookie')
 
-    // res.clearCookie('jwt', { sameSite: 'None', secure: true })
+    res.clearCookie('jwt', { sameSite: 'None', secure: true })
     res.cookie('jwt', 'loggedout', {
       expires: new Date(Date.now() + 10 * 1000),
       sameSite: 'None',
