@@ -57,7 +57,11 @@ const login = async (req, res) => {
 const logout = (req, res) => {
   try {
     res.clearCookie('jwt', { sameSite: 'None', secure: true })
-
+    res.cookie('jwt', 'loggedout', {
+      expires: new Date(Date.now() + 10 * 1000),
+      sameSite: 'None',
+      secure: true,
+    })
     res.status(200).json({ message: 'Logged out successfully' })
   } catch (error) {
     console.error(error)

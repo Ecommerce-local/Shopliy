@@ -1,7 +1,21 @@
 import { Carousel } from '@mantine/carousel'
 import { Carousel1, Carousel2, Carousel3 } from './../../../assets'
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import bannerApi from '../../../api/bannerApi'
+
 const HeroCarousel = () => {
+  const [banners, setBanners] = useState([])
+  const allBanners = async () => {
+    try {
+      const res = await bannerApi.getAllBanner()
+      setBanners(res.banners)
+    } catch (error) {console.log(error);}
+  }
+
+  useEffect(() => {
+    allBanners()
+  }, [])
   return (
     <div className="mb-20 mt-12">
       <Carousel
@@ -13,24 +27,15 @@ const HeroCarousel = () => {
         loop
         withIndicators
       >
-        <Carousel.Slide className="flex justify-center">
-          {' '}
-          <Link to="/categories">
-            <img className=" h-fit " src={Carousel1} alt="carousel" />
+        
+        {banners.map((item) => (
+          <Carousel.Slide className="flex justify-center">
+          {''}
+          <Link to={item.redirect}>
+            <img className=" h-fit" src={item.src} alt="carousel"/>
           </Link>
         </Carousel.Slide>
-        <Carousel.Slide className="flex justify-center">
-          {' '}
-          <Link to="/categories">
-            <img className=" h-fit " src={Carousel2} alt="carousel" />
-          </Link>
-        </Carousel.Slide>
-        <Carousel.Slide className="flex justify-center">
-          {' '}
-          <Link to="/categories">
-            <img className=" h-fit " src={Carousel3} alt="carousel" />
-          </Link>
-        </Carousel.Slide>
+        ))}
       </Carousel>
     </div>
   )
