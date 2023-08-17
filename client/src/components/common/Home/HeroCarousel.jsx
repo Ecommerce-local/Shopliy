@@ -29,7 +29,7 @@ const HeroCarousel = () => {
       >
         
         {banners.map((item) => (
-          <Carousel.Slide className="flex justify-center">
+          <Carousel.Slide className="flex justify-center" key={item.id}>
           {''}
           <Link to={item.redirect}>
             <img className=" h-fit" src={item.src} alt="carousel"/>
